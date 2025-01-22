@@ -25,7 +25,7 @@ public class playingCard
 
 public class deck
 {
-    public list<playingCard> cards;
+    public List<playingCard> cards;
     public deck()
     {
         cards = new List<playingCard>();
@@ -51,9 +51,26 @@ public class deck
     {
         if (cards.Count == 0)
         {
-            throw new 
+            throw new emptyDeck("No cards left")
         }
+
+        var topCard = cards[0];
+        cards.RemoveAt(0);
+        return topCard;
     }
 }
 
+class prog
+{
+    static void Main(string[] args)
+    {
+        deck deck = new deck();
+
+        for (int i = 0; i < 53; i++)
+        {
+            playingCard card = deck.Draw();
+            card.printCard();
+        }
+    }
+}
 
