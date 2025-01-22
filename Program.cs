@@ -1,58 +1,53 @@
 ﻿using System;
-using System.Collection.Generic;
 
-public class playingCard
+public class PlayingCard
 {
-    public string Suit { get; set; }
-    public string Value { get; set; }
+    public string suit;
+    public string value;
 
-    public playingCard() : this("Joker", "Joker")
+    public PlayingCard() : this("Joker", "Joker")
     {
     }
 
-    public playingCard(string suit, string value)
+    public PlayingCard(string suit, string value)
     {
-        Suit = suit;
-        Value = value;
+        this.suit = suit;
+        this.value = value;
     }
 
     public void printCard()
     {
-        Console.WriteLine($"{Value} of {Suit}")
+        Console.WriteLine($"{value} of {suit}");
     }
 }
 
 
-public class deck
+public class Deck
 {
-    public List<playingCard> cards;
-    public deck()
+    public List<PlayingCard> cards;
+    public Deck()
     {
-        cards = new List<playingCard>();
+        cards = new List<PlayingCard>();
         startDeck();
     }
     public void startDeck()
     {
-        string suits = { "Hearts", "Diamonds", "Clubs", "Spades" };
-        string values = { "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace" };
+        string[] suits = { "Hearts", "Diamonds", "Clubs", "Spades" };
+        string[] values = { "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace" };
 
         foreach (var suit in suits)
         {
             foreach (var value in values)
             {
-                cards.Add(new playingCard(suit, value));
+                cards.Add(new PlayingCard(suit, value));
             }
         }
 
-        cards.Add(new playingCard());
+        cards.Add(new PlayingCard());
     }
 
-    public playingCard Draw()
+    public PlayingCard Draw()
     {
-        if (cards.Count == 0)
-        {
-            throw new emptyDeck("No cards left")
-        }
 
         var topCard = cards[0];
         cards.RemoveAt(0);
@@ -60,15 +55,15 @@ public class deck
     }
 }
 
-class prog
+public class Program
 {
-    static void Main(string[] args)
+    public static void Main(string[] args)
     {
-        deck deck = new deck();
+        var deck = new Deck();
 
         for (int i = 0; i < 53; i++)
         {
-            playingCard card = deck.Draw();
+            PlayingCard card = deck.Draw();
             card.printCard();
         }
     }
